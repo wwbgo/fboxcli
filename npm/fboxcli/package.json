@@ -1,0 +1,32 @@
+{
+  "name": "@flexem/fboxcli",
+  "version": "0.1.2",
+  "description": "Agent-native CLI for FBox IoT platform API",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flexem/fboxcli.git"
+  },
+  "bin": {
+    "fboxcli": "bin/fboxcli"
+  },
+  "files": [
+    "bin/fboxcli",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14.21.3"
+  },
+  "keywords": [
+    "fbox",
+    "iot",
+    "cli",
+    "flexem",
+    "agent"
+  ],
+  "optionalDependencies": {
+    "@flexem/fboxcli-win32-x64": "0.1.2",
+    "@flexem/fboxcli-darwin-arm64": "0.1.2",
+    "@flexem/fboxcli-linux-x64": "0.1.2"
+  }
+}

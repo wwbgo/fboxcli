@@ -1,0 +1,9 @@
+/target
+
+/.claude/settings.local.json
+
+# 环境变量（含敏感信息）
+scripts/.env
+
+# cargo 配置（含内置凭证）
+.cargo/config.toml

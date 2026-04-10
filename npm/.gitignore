@@ -1,0 +1,4 @@
+# Compiled binaries (only exist during publish)
+fboxcli-win32-x64/fboxcli.exe
+fboxcli-darwin-arm64/fboxcli
+fboxcli-linux-x64/fboxcli

@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+const { execFileSync } = require("child_process");
+const { platform, arch, env, argv, exitCode } = process;
+
+const PLATFORMS = {
+  win32: {
+    x64: "@flexem/fboxcli-win32-x64/fboxcli.exe",
+  },
+  darwin: {
+    arm64: "@flexem/fboxcli-darwin-arm64/fboxcli",
+  },
+  linux: {
+    x64: "@flexem/fboxcli-linux-x64/fboxcli",
+  },
+};
+
+function getBinaryPath() {
+  if (env.FBOXCLI_BINARY) {
+    return env.FBOXCLI_BINARY;
+  }
+
+  const platformBins = PLATFORMS[platform];
+  if (!platformBins) {
+    return null;
+  }
+
+  const binSpecifier = platformBins[arch];
+  if (!binSpecifier) {
+    return null;
+  }
+
+  return require.resolve(binSpecifier);
+}
+
+const binPath = getBinaryPath();
+
+if (!binPath) {
+  console.error(
+    `fboxcli does not ship prebuilt binaries for your platform yet.\n` +
+    `  Platform: ${platform}, Arch: ${arch}\n` +
+    `  You can build from source: https://github.com/nicekwell/fboxcli`
+  );
+  process.exitCode = 1;
+} else {
+  const result = require("child_process").spawnSync(binPath, argv.slice(2), {
+    shell: false,
+    stdio: "inherit",
+  });
+
+  if (result.error) {
+    throw result.error;
+  }
+
+  process.exitCode = result.status;
+}
